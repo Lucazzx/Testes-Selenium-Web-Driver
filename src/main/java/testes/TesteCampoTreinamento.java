@@ -120,12 +120,11 @@ public class TesteCampoTreinamento {
 	}
 	
 	@Test
-	@Ignore
 	public void testeInteragirLinkVoltar() {
-		WebElement element = driver.findElement(By.linkText("Voltar"));
-		element.click();
-
-		assertEquals("javascript:voltou()", element.getAttribute("onclick"));
+		WebElement link = driver.findElement(By.linkText("Voltar"));
+		link.click();
+		WebElement texto = driver.findElement(By.id("resultado"));
+		assertEquals("Voltou!", texto.getText());
 	}
 	
 	@Test
