@@ -32,7 +32,7 @@ public class TesteCampoTreinamentoAlerts {
 	}
 	
 	@Test
-	public void testeInteragirAlert() {
+	public void testeInteragirAlertSimples() {
 		idElemento = "alert";
 
 		WebElement botao = driver.findElement(By.id(idElemento));
@@ -41,6 +41,27 @@ public class TesteCampoTreinamentoAlerts {
 		assertEquals("Alert Simples", alert.getText());
 	}
 	
+	@Test
+	public void testeInteragirAlertConfirmAccept() {
+		idElemento = "confirm";
+
+		WebElement botao = driver.findElement(By.id(idElemento));
+		botao.click();
+		Alert alert = driver.switchTo().alert();
+		alert.accept();
+		assertEquals("Confirmado", alert.getText());
+	}
+	
+	@Test
+	public void testeInteragirAlertConfirmDismiss() {
+		idElemento = "confirm";
+
+		WebElement botao = driver.findElement(By.id(idElemento));
+		botao.click();
+		Alert alert = driver.switchTo().alert();
+		alert.dismiss();
+		assertEquals("Negado", alert.getText());
+	}
 	
 	@After
 	public void TearDown() {
