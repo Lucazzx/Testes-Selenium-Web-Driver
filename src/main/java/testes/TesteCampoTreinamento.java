@@ -109,6 +109,15 @@ public class TesteCampoTreinamento {
 		assertEquals(3, allSelectedOptions.size());
 	}
 	
+	@Test
+	public void testeInteragirBotaoCliqueMe() {
+		idElemento = "buttonSimple";
+
+		WebElement element = driver.findElement(By.id(idElemento));
+		element.click();
+		assertEquals("Obrigado!", element.getAttribute("value"));
+	}
+	
 	
 	@After
 	public void TearDown() {
