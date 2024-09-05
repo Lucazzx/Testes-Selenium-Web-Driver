@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -113,9 +114,24 @@ public class TesteCampoTreinamento {
 	public void testeInteragirBotaoCliqueMe() {
 		idElemento = "buttonSimple";
 
-		WebElement element = driver.findElement(By.id(idElemento));
+		WebElement botao = driver.findElement(By.id(idElemento));
+		botao.click();
+		assertEquals("Obrigado!", botao.getAttribute("value"));
+	}
+	
+	@Test
+	@Ignore
+	public void testeInteragirLinkVoltar() {
+		WebElement element = driver.findElement(By.linkText("Voltar"));
 		element.click();
-		assertEquals("Obrigado!", element.getAttribute("value"));
+
+		assertEquals("javascript:voltou()", element.getAttribute("onclick"));
+	}
+	
+	@Test
+	public void testeBuscarTexto() {
+		WebElement texto = driver.findElement(By.tagName("h3"));
+		assertEquals("Campo de Treinamento", texto.getText());
 	}
 	
 	
