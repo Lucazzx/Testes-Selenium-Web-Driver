@@ -94,6 +94,21 @@ public class TesteCampoTreinamento {
 		assertTrue(encontrouElemento);
 	}
 	
+	@Test
+	public void testeValoresComboMultiplo() {
+		idElemento = "elementosForm:esportes";
+
+		WebElement element = driver.findElement(By.id(idElemento));
+		Select combo = new Select(element);
+		
+		combo.selectByVisibleText("Natacao");
+		combo.selectByVisibleText("Corrida");
+		combo.selectByVisibleText("O que eh esporte?");
+		
+		List<WebElement> allSelectedOptions = combo.getAllSelectedOptions();
+		assertEquals(3, allSelectedOptions.size());
+	}
+	
 	
 	@After
 	public void TearDown() {
