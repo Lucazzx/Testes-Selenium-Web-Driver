@@ -63,6 +63,40 @@ public class TesteCampoTreinamentoAlerts {
 		assertEquals("Negado", alert.getText());
 	}
 	
+	@Test
+	public void testeInteragirPromptTexto1() {
+		idElemento = "prompt";
+
+		WebElement botao = driver.findElement(By.id(idElemento));
+		botao.click();
+		Alert alert = driver.switchTo().alert();
+		assertEquals("Digite um numero", alert.getText());
+	}
+	
+	@Test
+	public void testeInteragirPromptTexto2() {
+		idElemento = "prompt";
+
+		WebElement botao = driver.findElement(By.id(idElemento));
+		botao.click();
+		Alert alert = driver.switchTo().alert();
+		alert.sendKeys("1");
+		alert.accept();
+		assertEquals("Era 1?", alert.getText());
+	}
+	
+	@Test
+	public void testeInteragirPromptTexto3() {
+		idElemento = "prompt";
+
+		WebElement botao = driver.findElement(By.id(idElemento));
+		botao.click();
+		Alert alert = driver.switchTo().alert();
+		alert.accept();
+		alert.accept();
+		assertEquals(":D", alert.getText());
+	}
+	
 	@After
 	public void TearDown() {
 		driver.quit();
