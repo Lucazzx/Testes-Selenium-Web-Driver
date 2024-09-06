@@ -133,6 +133,41 @@ public class TesteCampoTreinamentoElementosBasicos {
 		assertEquals("Campo de Treinamento", texto.getText());
 	}
 	
+	@Test
+	public void testeCadastroCompleto() {
+		
+		String[] dadosTexto = {"Lucas", "Sousa", "Incluindo sugestões"};
+		String[] idElementos = {"elementosForm:nome", "elementosForm:sobrenome", "elementosForm:sugestoes",
+				"elementosForm:sexo:0", "elementosForm:comidaFavorita:2", "elementosForm:escolaridade",
+				"elementosForm:esportes", "elementosForm:cadastrar", "resultado"};
+		
+		driver.findElement(By.id(idElementos[0])).sendKeys(dadosTexto[0]);
+		driver.findElement(By.id(idElementos[1])).sendKeys(dadosTexto[1]);
+		driver.findElement(By.id(idElementos[2])).sendKeys(dadosTexto[2]);
+		driver.findElement(By.id(idElementos[3])).click();
+		driver.findElement(By.id(idElementos[4])).click();
+		Select combo = new Select(driver.findElement(By.id(idElementos[5])));
+		combo.selectByVisibleText("Superior");
+		combo = new Select(driver.findElement(By.id(idElementos[6])));
+		combo.selectByVisibleText("Corrida");
+		driver.findElement(By.id(idElementos[7])).click();
+		
+		WebElement divResultado = driver.findElement(By.id(idElementos[8]));
+		
+		assertEquals("Cadastrado! " 
+		+ "Nome: Lucas "
+		+ "Sobrenome: Sousa "
+		+ "Sexo: Masculino "
+		+ "Comida: Pizza "
+		+ "Escolaridade: superior "
+		+ "Esportes: Corrida "
+		+ "Sugestoes: Incluindo sugestões", 
+		divResultado.getText().replaceAll("\\s+", " ").trim());
+		
+	}
+	
+	
+	
 	
 	@After
 	public void TearDown() {
