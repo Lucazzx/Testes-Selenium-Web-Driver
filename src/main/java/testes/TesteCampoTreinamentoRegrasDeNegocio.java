@@ -2,10 +2,6 @@ package testes;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;

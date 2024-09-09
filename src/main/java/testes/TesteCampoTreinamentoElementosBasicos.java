@@ -15,7 +15,6 @@ public class TesteCampoTreinamentoElementosBasicos extends BaseTeste {
 	@Test
 	public void testeTextField() {
 		idElemento = "elementosForm:nome";
-
 		driver.findElement(By.id(idElemento)).sendKeys("Teste de escrita");
 		assertEquals("Teste de escrita", driver.findElement(By.id(idElemento)).getAttribute("value"));
 	}
