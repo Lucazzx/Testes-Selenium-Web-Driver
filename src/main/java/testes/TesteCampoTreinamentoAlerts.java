@@ -1,76 +1,49 @@
 package testes;
 
 import static org.junit.Assert.assertEquals;
-import org.junit.Test;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
-public class TesteCampoTreinamentoAlerts extends BaseTeste {
+import org.junit.Test;
+
+public class TesteCampoTreinamentoAlerts extends DSLBaseTeste {
 		
 	@Test
 	public void testeInteragirAlertSimples() {
-		idElemento = "alert";
-
-		WebElement botao = driver.findElement(By.id(idElemento));
-		botao.click();
-		Alert alert = driver.switchTo().alert();
-		assertEquals("Alert Simples", alert.getText());
+		clicar(ALERTA);
+		assertEquals("Alert Simples", obterTextoAlerta());
 	}
 	
 	@Test
 	public void testeInteragirAlertConfirmAccept() {
-		idElemento = "confirm";
-
-		WebElement botao = driver.findElement(By.id(idElemento));
-		botao.click();
-		Alert alert = driver.switchTo().alert();
-		alert.accept();
-		assertEquals("Confirmado", alert.getText());
+		clicar(CONFIRMA);
+		trocaEAceitaAlerta();
+		assertEquals("Confirmado", obterTextoAlerta());
 	}
 	
 	@Test
 	public void testeInteragirAlertConfirmDismiss() {
-		idElemento = "confirm";
-
-		WebElement botao = driver.findElement(By.id(idElemento));
-		botao.click();
-		Alert alert = driver.switchTo().alert();
-		alert.dismiss();
-		assertEquals("Negado", alert.getText());
+		clicar(CONFIRMA);
+		trocaENegaAlerta();
+		assertEquals("Negado", obterTextoAlerta());
 	}
 	
 	@Test
 	public void testeInteragirPromptTexto1() {
-		idElemento = "prompt";
-
-		WebElement botao = driver.findElement(By.id(idElemento));
-		botao.click();
-		Alert alert = driver.switchTo().alert();
-		assertEquals("Digite um numero", alert.getText());
+		clicar(PROMPT);
+		assertEquals("Digite um numero", obterTextoAlerta());
 	}
 	
 	@Test
 	public void testeInteragirPromptTexto2() {
-		idElemento = "prompt";
-
-		WebElement botao = driver.findElement(By.id(idElemento));
-		botao.click();
-		Alert alert = driver.switchTo().alert();
-		alert.sendKeys("1");
-		alert.accept();
-		assertEquals("Era 1?", alert.getText());
+		clicar(PROMPT);
+		escreverAlerta("1");
+		assertEquals("Era 1?", obterTextoAlerta());
 	}
 	
 	@Test
 	public void testeInteragirPromptTexto3() {
-		idElemento = "prompt";
-
-		WebElement botao = driver.findElement(By.id(idElemento));
-		botao.click();
-		Alert alert = driver.switchTo().alert();
-		alert.accept();
-		alert.accept();
-		assertEquals(":D", alert.getText());
+		clicar(PROMPT);
+		trocaEAceitaAlerta();
+		trocaEAceitaAlerta();
+		assertEquals(":D",  obterTextoAlerta());
 	}
 }

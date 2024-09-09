@@ -3,109 +3,67 @@ package testes;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 
-public class TesteCampoTreinamentoRegrasDeNegocio extends BaseTeste {
+public class TesteCampoTreinamentoRegrasDeNegocio extends DSLBaseTeste {
 		
 	@Test
 	public void testeRegraDeNegocioNome() {
-		idElemento = "elementosForm:cadastrar";
-		WebElement botao = driver.findElement(By.id(idElemento));
-		botao.click();
-		
-		Alert alert = driver.switchTo().alert();
-		assertEquals("Nome eh obrigatorio", alert.getText());
+		clicar(BOTAO_CADASTRAR);
+		assertEquals("Nome eh obrigatorio", obterTextoAlerta());
 	}
 	
 	@Test
 	public void testeRegraDeNegocioSobrenome() {
-		idElemento = "elementosForm:nome";
-		WebElement texto = driver.findElement(By.id(idElemento));
-		texto.sendKeys("ExemploNome");
+		escrever(CAMPO_NOME	,"ExemploNome");
 		
-		idElemento = "elementosForm:cadastrar";
-		WebElement botao = driver.findElement(By.id(idElemento));
-		botao.click();
+		clicar(BOTAO_CADASTRAR);
 		
-		Alert alert = driver.switchTo().alert();
-		assertEquals("Sobrenome eh obrigatorio", alert.getText());
+		assertEquals("Sobrenome eh obrigatorio", obterTextoAlerta());
 	}
 	
 	@Test
 	public void testeRegraDeNegocioSexo() {
-		idElemento = "elementosForm:nome";
-		WebElement texto = driver.findElement(By.id(idElemento));
-		texto.sendKeys("ExemploNome");
+		escrever(CAMPO_NOME	,"ExemploNome");
 		
-		idElemento = "elementosForm:sobrenome";
-		texto = driver.findElement(By.id(idElemento));
-		texto.sendKeys("ExemploSobrenome");
+		escrever(CAMPO_SOBRENOME,"ExemploSobrenome");
 		
-		idElemento = "elementosForm:cadastrar";
-		WebElement botao = driver.findElement(By.id(idElemento));
-		botao.click();
+		clicar(BOTAO_CADASTRAR);
 		
-		Alert alert = driver.switchTo().alert();
-		assertEquals("Sexo eh obrigatorio", alert.getText());
+		assertEquals("Sexo eh obrigatorio", obterTextoAlerta());
 	}
 	
 	@Test
 	public void testeRegraDeNegocioComida() {
-		idElemento = "elementosForm:nome";
-		WebElement texto = driver.findElement(By.id(idElemento));
-		texto.sendKeys("ExemploNome");
+		escrever(CAMPO_NOME	,"ExemploNome");
 		
-		idElemento = "elementosForm:sobrenome";
-		texto = driver.findElement(By.id(idElemento));
-		texto.sendKeys("ExemploSobrenome");
+		escrever(CAMPO_SOBRENOME,"ExemploSobrenome");
 		
-		idElemento = "elementosForm:sexo:0";
-		driver.findElement(By.id(idElemento)).click();
+		clicar(RADIO_SEXO_MASCULINO);
 		
-		idElemento = "elementosForm:comidaFavorita:0";
-		driver.findElement(By.id(idElemento)).click();
-		idElemento = "elementosForm:comidaFavorita:3";
-		driver.findElement(By.id(idElemento)).click();
+		clicar(CHECKBOX_COMIDA_CARNE);
+		clicar(CHECKBOX_COMIDA_VEGETARIANO);
 		
-		idElemento = "elementosForm:cadastrar";
-		WebElement botao = driver.findElement(By.id(idElemento));
-		botao.click();
+		clicar(BOTAO_CADASTRAR);
 		
-		Alert alert = driver.switchTo().alert();
-		assertEquals("Tem certeza que voce eh vegetariano?", alert.getText());
+		assertEquals("Tem certeza que voce eh vegetariano?", obterTextoAlerta());
 	}
 	
 	@Test
 	public void testeRegraDeNegocioEsporte() {
-		idElemento = "elementosForm:nome";
-		WebElement texto = driver.findElement(By.id(idElemento));
-		texto.sendKeys("ExemploNome");
+		escrever(CAMPO_NOME	,"ExemploNome");
 		
-		idElemento = "elementosForm:sobrenome";
-		texto = driver.findElement(By.id(idElemento));
-		texto.sendKeys("ExemploSobrenome");
+		escrever(CAMPO_SOBRENOME,"ExemploSobrenome");
 		
-		idElemento = "elementosForm:sexo:0";
-		driver.findElement(By.id(idElemento)).click();
+		clicar(RADIO_SEXO_MASCULINO);
 		
-		idElemento = "elementosForm:comidaFavorita:0";
-		driver.findElement(By.id(idElemento)).click();
+		clicar(CHECKBOX_COMIDA_CARNE);
 		
-		idElemento = "elementosForm:esportes";
-		WebElement element = driver.findElement(By.id(idElemento));
-		Select combo = new Select(element);
-		combo.selectByVisibleText("Natacao");
-		combo.selectByVisibleText("O que eh esporte?");
+		selecionarCombo(COMBO_ESPORTE, "Natacao");
+		selecionarCombo(COMBO_ESPORTE, "O que eh esporte?");
 		
-		idElemento = "elementosForm:cadastrar";
-		WebElement botao = driver.findElement(By.id(idElemento));
-		botao.click();
+		clicar(BOTAO_CADASTRAR);
 		
-		Alert alert = driver.switchTo().alert();
-		assertEquals("Voce faz esporte ou nao?", alert.getText());
+		assertEquals("Voce faz esporte ou nao?", obterTextoAlerta());
 	}
 
 

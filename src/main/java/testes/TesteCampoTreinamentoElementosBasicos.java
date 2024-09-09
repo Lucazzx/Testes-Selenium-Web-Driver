@@ -10,77 +10,53 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-public class TesteCampoTreinamentoElementosBasicos extends BaseTeste {
+public class TesteCampoTreinamentoElementosBasicos extends DSLBaseTeste {
+	
+	
+	
 	
 	@Test
 	public void testeTextField() {
-		idElemento = "elementosForm:nome";
-		driver.findElement(By.id(idElemento)).sendKeys("Teste de escrita");
-		assertEquals("Teste de escrita", driver.findElement(By.id(idElemento)).getAttribute("value"));
+		String texto = "Teste de escrita";
+		escrever(CAMPO_NOME, texto);
+		assertEquals(texto, obterValorCampo(CAMPO_NOME));
 	}
 	
 	@Test
 	public void testeTextArea() {
-		idElemento = "elementosForm:sugestoes";
-
-		driver.findElement(By.id(idElemento)).sendKeys("TesteLinha1\nTesteLinha2\n\n\n\n\n\nTesteLinha8");
-		assertEquals("TesteLinha1\nTesteLinha2\n\n\n\n\n\nTesteLinha8", driver.findElement(By.id(idElemento)).getAttribute("value"));
+		String texto = "TesteLinha1\nTesteLinha2\n\n\n\n\n\nTesteLinha8" ;
+		escrever(CAMPO_SUGESTOES,texto);
+		assertEquals(texto, obterValorCampo(CAMPO_SUGESTOES));
 	}
 	
 	@Test
 	public void testeRadioButton() {
-		idElemento = "elementosForm:sexo:0";
-
-		driver.findElement(By.id(idElemento)).click();
-		assertTrue(driver.findElement(By.id(idElemento)).isSelected());
+		clicar(RADIO_SEXO_MASCULINO);
+		assertTrue(estaMarcado(RADIO_SEXO_MASCULINO));
 	}
 	
 	@Test
 	public void testeCheckBox() {
-		idElemento = "elementosForm:comidaFavorita:2";
-
-		driver.findElement(By.id(idElemento)).click();
-		assertTrue(driver.findElement(By.id(idElemento)).isSelected());
+		clicar(CHECKBOX_COMIDA_PIZZA);
+		assertTrue(estaMarcado(CHECKBOX_COMIDA_PIZZA));
 	}
 	
 	@Test
 	public void testeComboBox() {
-		idElemento = "elementosForm:escolaridade";
-
-		WebElement element = driver.findElement(By.id(idElemento));
-		Select combo = new Select(element);
-		//combo.selectByIndex(2);
-		//combo.selectByValue("2grauincomp");
-		combo.selectByVisibleText("2o grau incompleto");
-		assertEquals("2o grau incompleto", combo.getFirstSelectedOption().getText());		
+		String valor = "2o grau incompleto";
+		selecionarCombo(COMBO_ESCOLARIDADE, valor);
+		assertEquals(valor, obterValorCombo(COMBO_ESCOLARIDADE));		
 	}
 	
 	
 	@Test
 	public void testeValoresComboBox() {
-		idElemento = "elementosForm:escolaridade";
-
-		WebElement element = driver.findElement(By.id(idElemento));
-		Select combo = new Select(element);
-
-		List<WebElement> options = combo.getOptions();
-		assertEquals(8, options.size());
-		
-		boolean encontrouElemento = false;
-		for(WebElement option : options) {
-			if (option.getText().equals("Mestrado")) {
-				encontrouElemento = true;
-				break;
-			}
-		}
-		assertTrue(encontrouElemento);
+		assertTrue(procurarValorCombo(COMBO_ESCOLARIDADE, "Mestrado"));
 	}
 	
 	@Test
 	public void testeValoresComboMultiplo() {
-		idElemento = "elementosForm:esportes";
-
-		WebElement element = driver.findElement(By.id(idElemento));
+		WebElement element = driver.findElement(By.id(COMBO_ESPORTE));
 		Select combo = new Select(element);
 		
 		combo.selectByVisibleText("Natacao");
@@ -93,45 +69,37 @@ public class TesteCampoTreinamentoElementosBasicos extends BaseTeste {
 	
 	@Test
 	public void testeInteragirBotaoCliqueMe() {
-		idElemento = "buttonSimple";
-
-		WebElement botao = driver.findElement(By.id(idElemento));
-		botao.click();
-		assertEquals("Obrigado!", botao.getAttribute("value"));
+		String id = BOTAO_SIMPLES;
+		clicar(id);
+		assertEquals("Obrigado!", obterValorCampo(id));
 	}
 	
 	@Test
 	public void testeInteragirLinkVoltar() {
-		WebElement link = driver.findElement(By.linkText("Voltar"));
-		link.click();
-		WebElement texto = driver.findElement(By.id("resultado"));
-		assertEquals("Voltou!", texto.getText());
+		clicarLink("Voltar");
+		assertEquals("Voltou!", obterValorCampo(RESULTADO));
 	}
 	
 	@Test
 	public void testeBuscarTexto() {
-		WebElement texto = driver.findElement(By.tagName("h3"));
-		assertEquals("Campo de Treinamento", texto.getText());
+		assertEquals("Campo de Treinamento", obterTextoTag("h3"));
 	}
 	
 	@Test
 	public void testeCadastroCompleto() {
 		
 		String[] dadosTexto = {"Lucas", "Sousa", "Incluindo sugestões"};
-		String[] idElementos = {"elementosForm:nome", "elementosForm:sobrenome", "elementosForm:sugestoes",
-				"elementosForm:sexo:0", "elementosForm:comidaFavorita:2", "elementosForm:escolaridade",
-				"elementosForm:esportes", "elementosForm:cadastrar", "resultado"};
-		
-		driver.findElement(By.id(idElementos[0])).sendKeys(dadosTexto[0]);
-		driver.findElement(By.id(idElementos[1])).sendKeys(dadosTexto[1]);
-		driver.findElement(By.id(idElementos[2])).sendKeys(dadosTexto[2]);
-		driver.findElement(By.id(idElementos[3])).click();
-		driver.findElement(By.id(idElementos[4])).click();
-		Select combo = new Select(driver.findElement(By.id(idElementos[5])));
-		combo.selectByVisibleText("Superior");
-		combo = new Select(driver.findElement(By.id(idElementos[6])));
-		combo.selectByVisibleText("Corrida");
-		driver.findElement(By.id(idElementos[7])).click();
+		String[] idElementos = {CAMPO_NOME, CAMPO_SOBRENOME, CAMPO_SUGESTOES,
+				RADIO_SEXO_MASCULINO, CHECKBOX_COMIDA_PIZZA, COMBO_ESCOLARIDADE,
+				COMBO_ESPORTE, BOTAO_CADASTRAR, RESULTADO};
+		escrever(idElementos[0], dadosTexto[0]);
+		escrever(idElementos[1], dadosTexto[1]);
+		escrever(idElementos[2], dadosTexto[2]);
+		clicar(idElementos[3]);
+		clicar(idElementos[4]);
+		selecionarCombo(idElementos[5], "Superior");
+		selecionarCombo(idElementos[6], "Corrida");
+		clicar(idElementos[7]);
 		
 		WebElement divResultado = driver.findElement(By.id(idElementos[8]));
 		
