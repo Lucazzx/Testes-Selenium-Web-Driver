@@ -50,10 +50,12 @@ public class DSLBaseTeste {
     }
     
     public void escrever(String id, String texto) {
+    	driver.findElement(By.id(id)).clear();
     	driver.findElement(By.id(id)).sendKeys(texto);
     }
     
     public void escreverTag(String tag, String texto) {
+    	driver.findElement(By.tagName(tag)).clear();
     	driver.findElement(By.tagName(tag)).sendKeys(texto);
     }
     
