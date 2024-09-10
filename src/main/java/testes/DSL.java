@@ -2,53 +2,19 @@ package testes;
 
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class DSLBaseTeste {
+public class DSL {
 	
-    protected static final String CAMPO_NOME = "elementosForm:nome";
-    protected static final String CAMPO_SOBRENOME = "elementosForm:sobrenome";
-    protected static final String CAMPO_SUGESTOES = "elementosForm:sugestoes";
-    protected static final String RADIO_SEXO_MASCULINO = "elementosForm:sexo:0";
-    protected static final String CHECKBOX_COMIDA_CARNE = "elementosForm:comidaFavorita:0";
-    protected static final String CHECKBOX_COMIDA_PIZZA = "elementosForm:comidaFavorita:2";
-    protected static final String CHECKBOX_COMIDA_VEGETARIANO = "elementosForm:comidaFavorita:3";
-    protected static final String COMBO_ESCOLARIDADE = "elementosForm:escolaridade";
-    protected static final String COMBO_ESPORTE = "elementosForm:esportes";
-    protected static final String BOTAO_CADASTRAR = "elementosForm:cadastrar";
-    protected static final String RESULTADO = "resultado";
-    protected static final String BOTAO_SIMPLES = "buttonSimple";
-    protected static final String LINK_VOLTAR = "Voltar";
-    protected static final String ALERTA = "Alert";
-    protected static final String CONFIRMA = "Confirm";
-    protected static final String PROMPT = "prompt";
-    protected static final String BOTAO_FRAME = "frameButton";
-    protected static final String FRAME_1 = "frame1";
-    protected static final String BOTAO_POPUP_COM_NOME = "buttonPopUpEasy";
-    protected static final String BOTAO_POPUP_SEM_NOME = "buttonPopUpHard";
-	
-    protected WebDriver driver;
-    //protected String idElemento;
+	private WebDriver driver;
 
-    
-    @Before
-    public void setUp() {
-		driver = new FirefoxDriver();
-		driver.manage().window().minimize();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-    }
-
-    @After
-    public void tearDown() {
-		driver.quit();
-    }
-    
+    public DSL(WebDriver driver) {
+		this.driver = driver;
+	}
+        
     public void escrever(String id, String texto) {
     	driver.findElement(By.id(id)).clear();
     	driver.findElement(By.id(id)).sendKeys(texto);

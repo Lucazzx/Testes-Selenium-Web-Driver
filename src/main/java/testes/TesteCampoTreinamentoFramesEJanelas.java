@@ -6,37 +6,60 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class TesteCampoTreinamentoFramesEJanelas extends DSLBaseTeste {
+public class TesteCampoTreinamentoFramesEJanelas {
+	
+	private WebDriver driver;
+	private DSL dsl;
+	private CampoDeTreinamentoPage page;
+	
+	@Before
+    public void setUp() {
+		driver = new FirefoxDriver();
+		driver.manage().window().minimize();
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL(driver);
+		page = new CampoDeTreinamentoPage(driver);
+    }
+
+    @After
+    public void tearDown() {
+		driver.quit();
+    }
+	
 		
 	@Test
 	public void testeInteragirFrame() {
-		trocaParaFrame(FRAME_1);
-		clicar(BOTAO_FRAME);
-		assertEquals("Frame OK!", obterTextoAlerta());
+		page.setFrame1();
+		page.setClickBotaoFrame();
+		assertEquals("Frame OK!", page.getTextoAlerta());
 	}
 	
 	@Test
 	public void testeInteragirJanelasComtitulo() {
 		String janelaPrincipal = driver.getWindowHandle();
-		clicar(BOTAO_POPUP_COM_NOME);
-		trocaParaJanela("Popup");
-		escreverTag("textarea", "Teste de escrita");
+		page.setClickPopUpComNome();
+		dsl.trocaParaJanela("Popup");
+		dsl.escreverTag("textarea", "Teste de escrita");
 		driver.close();
-		trocaParaJanela(janelaPrincipal);
+		dsl.trocaParaJanela(janelaPrincipal);
 		assertEquals("Campo de Treinamento", driver.getTitle());
 	}
 	
 	@Test
 	public void testeInteragirJanelasSemtitulo() {
-		clicar(BOTAO_POPUP_SEM_NOME);
+		page.setClickPopUpSemNome();
 		Set<String> idJanelas = driver.getWindowHandles();
 		List<String> janelas = new ArrayList<>(idJanelas);
-		trocaParaJanela(janelas.get(1));
-		escreverTag("textarea", "Teste de escrita");
+		dsl.trocaParaJanela(janelas.get(1));
+		dsl.escreverTag("textarea", "Teste de escrita");
 		driver.close();
-		trocaParaJanela(janelas.get(0));
+		dsl.trocaParaJanela(janelas.get(0));
 		assertEquals("Campo de Treinamento", driver.getTitle());
 	}
 	

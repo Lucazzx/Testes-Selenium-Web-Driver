@@ -5,58 +5,78 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class TesteCampoTreinamentoElementosBasicos extends DSLBaseTeste {
+public class TesteCampoTreinamentoElementosBasicos {
 	
+	private WebDriver driver;
+	private DSL dsl;
+	private CampoDeTreinamentoPage page;
+	
+	@Before
+    public void setUp() {
+		driver = new FirefoxDriver();
+		driver.manage().window().minimize();
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL(driver);
+		page = new CampoDeTreinamentoPage(driver);
+    }
+
+    @After
+    public void tearDown() {
+		driver.quit();
+    }
 	
 	
 	
 	@Test
 	public void testeTextField() {
 		String texto = "Teste de escrita";
-		escrever(CAMPO_NOME, texto);
-		assertEquals(texto, obterValorCampo(CAMPO_NOME));
+		page.setNome(texto);
+		assertEquals(texto, page.getNome());
 	}
 	
 	@Test
 	public void testeTextArea() {
 		String texto = "TesteLinha1\nTesteLinha2\n\n\n\n\n\nTesteLinha8" ;
-		escrever(CAMPO_SUGESTOES,texto);
-		assertEquals(texto, obterValorCampo(CAMPO_SUGESTOES));
+		page.setSugestoes(texto);
+		assertEquals(texto, page.getSugestoes());
 	}
 	
 	@Test
 	public void testeRadioButton() {
-		clicar(RADIO_SEXO_MASCULINO);
-		assertTrue(estaMarcado(RADIO_SEXO_MASCULINO));
+		page.setSexoMasculino();
+		assertTrue(page.getSexoMasculino());
 	}
 	
 	@Test
 	public void testeCheckBox() {
-		clicar(CHECKBOX_COMIDA_PIZZA);
-		assertTrue(estaMarcado(CHECKBOX_COMIDA_PIZZA));
+		page.setComidaPizza();
+		assertTrue(page.getComidaPizza());
 	}
 	
 	@Test
 	public void testeComboBox() {
 		String valor = "2o grau incompleto";
-		selecionarCombo(COMBO_ESCOLARIDADE, valor);
-		assertEquals(valor, obterValorCombo(COMBO_ESCOLARIDADE));		
+		page.setEscolaridade(valor);
+		assertEquals(valor, page.getEscolaridade());		
 	}
-	
 	
 	@Test
 	public void testeValoresComboBox() {
-		assertTrue(procurarValorCombo(COMBO_ESCOLARIDADE, "Mestrado"));
+		assertTrue(page.getDaListaEscolaridade("Mestrado"));
 	}
 	
 	@Test
 	public void testeValoresComboMultiplo() {
-		WebElement element = driver.findElement(By.id(COMBO_ESPORTE));
+		WebElement element = driver.findElement(By.id(CampoDeTreinamentoPage.COMBO_ESPORTE));
 		Select combo = new Select(element);
 		
 		combo.selectByVisibleText("Natacao");
@@ -69,39 +89,33 @@ public class TesteCampoTreinamentoElementosBasicos extends DSLBaseTeste {
 	
 	@Test
 	public void testeInteragirBotaoCliqueMe() {
-		String id = BOTAO_SIMPLES;
-		clicar(id);
-		assertEquals("Obrigado!", obterValorCampo(id));
+		page.setClickBotaoCliqueMe();
+		assertEquals("Obrigado!", page.getBotaoCliqueMe());
 	}
 	
 	@Test
 	public void testeInteragirLinkVoltar() {
-		clicarLink("Voltar");
-		assertEquals("Voltou!", obterValorCampo(RESULTADO));
+		page.setClickLinkVoltar();
+		assertEquals("Voltou!", page.getResultado());
 	}
 	
 	@Test
 	public void testeBuscarTexto() {
-		assertEquals("Campo de Treinamento", obterTextoTag("h3"));
+		assertEquals("Campo de Treinamento", dsl.obterTextoTag("h3"));
 	}
 	
 	@Test
 	public void testeCadastroCompleto() {
-		
-		String[] dadosTexto = {"Lucas", "Sousa", "Incluindo sugestões"};
-		String[] idElementos = {CAMPO_NOME, CAMPO_SOBRENOME, CAMPO_SUGESTOES,
-				RADIO_SEXO_MASCULINO, CHECKBOX_COMIDA_PIZZA, COMBO_ESCOLARIDADE,
-				COMBO_ESPORTE, BOTAO_CADASTRAR, RESULTADO};
-		escrever(idElementos[0], dadosTexto[0]);
-		escrever(idElementos[1], dadosTexto[1]);
-		escrever(idElementos[2], dadosTexto[2]);
-		clicar(idElementos[3]);
-		clicar(idElementos[4]);
-		selecionarCombo(idElementos[5], "Superior");
-		selecionarCombo(idElementos[6], "Corrida");
-		clicar(idElementos[7]);
-		
-		WebElement divResultado = driver.findElement(By.id(idElementos[8]));
+		page.setNome("Lucas");
+		page.setSobrenome("Sousa");
+		page.setSugestoes("Incluindo sugestões");
+		page.setSexoMasculino();
+		page.setComidaPizza();
+		page.setEscolaridade("Superior");
+		page.setEsporte("Corrida");
+		page.setClickBotaoCadastrar();
+
+		WebElement divResultado = driver.findElement(By.id(CampoDeTreinamentoPage.RESULTADO));
 		
 		assertEquals("Cadastrado! " 
 		+ "Nome: Lucas "

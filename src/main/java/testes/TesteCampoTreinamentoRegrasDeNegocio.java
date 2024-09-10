@@ -2,68 +2,77 @@ package testes;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class TesteCampoTreinamentoRegrasDeNegocio extends DSLBaseTeste {
+public class TesteCampoTreinamentoRegrasDeNegocio {
+	
+	private WebDriver driver;
+	private CampoDeTreinamentoPage page;
+	
+	@Before
+    public void setUp() {
+		driver = new FirefoxDriver();
+		driver.manage().window().minimize();
+		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		page = new CampoDeTreinamentoPage(driver);
+    }
+
+    @After
+    public void tearDown() {
+		driver.quit();
+    }
 		
 	@Test
 	public void testeRegraDeNegocioNome() {
-		clicar(BOTAO_CADASTRAR);
-		assertEquals("Nome eh obrigatorio", obterTextoAlerta());
+		page.setClickBotaoCadastrar();
+		
+		assertEquals("Nome eh obrigatorio", page.getTextoAlerta());
 	}
 	
 	@Test
 	public void testeRegraDeNegocioSobrenome() {
-		escrever(CAMPO_NOME	,"ExemploNome");
+		page.setNome("ExemploNome");
+		page.setClickBotaoCadastrar();
 		
-		clicar(BOTAO_CADASTRAR);
-		
-		assertEquals("Sobrenome eh obrigatorio", obterTextoAlerta());
+		assertEquals("Sobrenome eh obrigatorio", page.getTextoAlerta());
 	}
 	
 	@Test
 	public void testeRegraDeNegocioSexo() {
-		escrever(CAMPO_NOME	,"ExemploNome");
+		page.setNome("ExemploNome");
+		page.setSobrenome("ExemploSobrenome");
+		page.setClickBotaoCadastrar();
 		
-		escrever(CAMPO_SOBRENOME,"ExemploSobrenome");
-		
-		clicar(BOTAO_CADASTRAR);
-		
-		assertEquals("Sexo eh obrigatorio", obterTextoAlerta());
+		assertEquals("Sexo eh obrigatorio", page.getTextoAlerta());
 	}
 	
 	@Test
 	public void testeRegraDeNegocioComida() {
-		escrever(CAMPO_NOME	,"ExemploNome");
+		page.setNome("ExemploNome");
+		page.setSobrenome("ExemploSobrenome");
+		page.setSexoMasculino();
+		page.setComidaCarne();
+		page.setComidaVegetariano();
+		page.setClickBotaoCadastrar();
 		
-		escrever(CAMPO_SOBRENOME,"ExemploSobrenome");
-		
-		clicar(RADIO_SEXO_MASCULINO);
-		
-		clicar(CHECKBOX_COMIDA_CARNE);
-		clicar(CHECKBOX_COMIDA_VEGETARIANO);
-		
-		clicar(BOTAO_CADASTRAR);
-		
-		assertEquals("Tem certeza que voce eh vegetariano?", obterTextoAlerta());
+		assertEquals("Tem certeza que voce eh vegetariano?", page.getTextoAlerta());
 	}
 	
 	@Test
 	public void testeRegraDeNegocioEsporte() {
-		escrever(CAMPO_NOME	,"ExemploNome");
+		page.setNome("ExemploNome");
+		page.setSobrenome("ExemploSobrenome");
+		page.setSexoMasculino();
+		page.setComidaCarne();
+		page.setEsporte("Natacao");
+		page.setEsporte("O que eh esporte?");
+		page.setClickBotaoCadastrar();
 		
-		escrever(CAMPO_SOBRENOME,"ExemploSobrenome");
-		
-		clicar(RADIO_SEXO_MASCULINO);
-		
-		clicar(CHECKBOX_COMIDA_CARNE);
-		
-		selecionarCombo(COMBO_ESPORTE, "Natacao");
-		selecionarCombo(COMBO_ESPORTE, "O que eh esporte?");
-		
-		clicar(BOTAO_CADASTRAR);
-		
-		assertEquals("Voce faz esporte ou nao?", obterTextoAlerta());
+		assertEquals("Voce faz esporte ou nao?", page.getTextoAlerta());
 	}
 
 
