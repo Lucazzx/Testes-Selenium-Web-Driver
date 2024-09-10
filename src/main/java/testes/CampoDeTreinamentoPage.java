@@ -131,7 +131,7 @@ public class CampoDeTreinamentoPage {
     }
     
     public String getResultado () {
-    	return dsl.obterValorCampo(RESULTADO);
+    	return dsl.obterTextoCampo(RESULTADO);
     }
     
     public void setEsporte (String valor) {
