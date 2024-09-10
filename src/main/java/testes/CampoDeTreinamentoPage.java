@@ -106,7 +106,7 @@ public class CampoDeTreinamentoPage {
     	return dsl.estaMarcado(CampoDeTreinamentoPage.CHECKBOX_COMIDA_VEGETARIANO);
     }
     
-    public void setEscolaridade (String valor) {
+    public void setEscolaridade (String... valor) {
     	dsl.selecionarCombo(COMBO_ESCOLARIDADE, valor);
     }
     
@@ -134,8 +134,8 @@ public class CampoDeTreinamentoPage {
     	return dsl.obterTextoCampo(RESULTADO);
     }
     
-    public void setEsporte (String valor) {
-    	dsl.selecionarCombo(COMBO_ESPORTE, valor);
+    public void setEsporte (String... esportes) {
+    	dsl.selecionarCombo(COMBO_ESPORTE, esportes);
     }
     
     public void setClickBotaoCadastrar () {

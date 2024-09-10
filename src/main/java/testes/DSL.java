@@ -49,12 +49,24 @@ public class DSL {
     	return driver.findElement(By.id(id)).isSelected();
     }
     
-    public void selecionarCombo(String id, String valor) {
-    	WebElement element = driver.findElement(By.id(id));
-		Select combo = new Select(element);
-		//combo.selectByIndex(2);
-		//combo.selectByValue("2grauincomp");
-		combo.selectByVisibleText(valor);
+    public void selecionarCombo(String id, String[] esportes) {
+        WebElement element = driver.findElement(By.id(id));
+        Select combo = new Select(element);
+        
+        // Obtém todos os itens disponíveis no combo
+        List<WebElement> todasOpcoes = combo.getOptions();
+        
+        // Loop para percorrer as opções e selecionar aquelas presentes no array "esportes"
+        for (WebElement opcao : todasOpcoes) {
+            String textoOpcao = opcao.getText(); // Obtém o texto visível da opção
+            
+            // Verifica se a opção está no array "esportes" e a seleciona
+            for (String esporte : esportes) {
+                if (textoOpcao.equalsIgnoreCase(esporte)) {
+                    combo.selectByVisibleText(esporte);
+                }
+            }
+        }
     }
     
     public String obterValorCombo(String id) {

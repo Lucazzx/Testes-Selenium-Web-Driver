@@ -64,7 +64,7 @@ public class TesteCampoTreinamentoElementosBasicos {
 	
 	@Test
 	public void testeComboBox() {
-		String valor = "2o grau incompleto";
+		String [] valor = {"2o grau incompleto"};
 		page.setEscolaridade(valor);
 		assertEquals(valor, page.getEscolaridade());		
 	}
