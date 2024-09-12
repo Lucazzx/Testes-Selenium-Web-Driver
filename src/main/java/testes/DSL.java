@@ -3,6 +3,7 @@ package testes;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -121,5 +122,9 @@ public class DSL {
     	driver.switchTo().window(janela);
     }
     
+    public void executarJS (String comando, Object... parametros) {
+    	JavascriptExecutor js = (JavascriptExecutor) driver;
+    	js.executeScript(comando, parametros);
+    }
     
 }

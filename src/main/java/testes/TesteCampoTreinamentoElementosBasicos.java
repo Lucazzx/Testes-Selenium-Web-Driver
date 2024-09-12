@@ -7,8 +7,10 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -31,7 +33,7 @@ public class TesteCampoTreinamentoElementosBasicos {
 
     @After
     public void tearDown() {
-		driver.quit();
+		//driver.quit();
     }
 	
 	
@@ -126,6 +128,16 @@ public class TesteCampoTreinamentoElementosBasicos {
 		+ "Esportes: Corrida "
 		+ "Sugestoes: Incluindo sugestões", 
 		divResultado.getText().replaceAll("\\s+", " ").trim());
+		
+	}
+	
+	@Test
+	@Ignore
+	// exemplo de uso de js no selenium
+	public void testeJavascript() {
+		dsl.executarJS("arguments[0].style.border = arguments[1]", 
+				driver.findElement(By.id("elementosForm:nome")), 
+				"solid 4px red");
 		
 	}
 }
