@@ -140,4 +140,15 @@ public class TesteCampoTreinamentoElementosBasicos {
 				"solid 4px red");
 		
 	}
+	
+	@Test
+	public void testeClicarBotaotabela() {
+		String coluna = "Escolaridade";
+		String valor = "Mestrado";
+		String nome = "Usuario A";
+		
+		dsl.clicarBotaoTabela(coluna, valor, "Botao", "elementosForm:tableUsuarios");
+		dsl.trocaParaAlerta();
+		assertEquals(nome, page.getTextoAlerta());
+	}
 }
