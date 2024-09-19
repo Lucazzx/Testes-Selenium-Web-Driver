@@ -1,12 +1,15 @@
 package testes;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class DSL {
 	
@@ -40,6 +43,10 @@ public class DSL {
     
     public void clicar(String id) {
     	driver.findElement(By.id(id)).click();
+    }
+    
+    public void clicarPorXpath(String id) {
+    	driver.findElement(By.xpath(id)).click();
     }
     
     public void clicarLink(String textoLink) {
@@ -161,6 +168,11 @@ public class DSL {
     		}
     	}
     	return idColuna;
+	}
+	
+	public void aguardarPorXpath(int segundos, String xPath) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(segundos));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
 	}
     
 }
