@@ -49,5 +49,15 @@ public class TestePrimeFaces {
     	assertEquals("Option2", dsl.obterTextoCampo("j_idt248:option_label"));
     }
 	
+    @Test
+    public void testeInteragirAjax(){
+		driver.get("http://www.primefaces.org/showcase/ui/ajax/basic.xhtml?jfwid=64a06");
+    	
+		dsl.escrever("j_idt248:name", "Lucas");
+		dsl.clicar("j_idt248:j_idt252");
+		dsl.aguardarPorId(10, "j_idt248:display");
+    	assertEquals("Lucas", dsl.obterTextoCampo("j_idt248:display"));
+    }
+    
 
 }
