@@ -170,6 +170,11 @@ public class DSL {
     	return idColuna;
 	}
 	
+	public void aguardarPorId(int segundos, String id) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(segundos));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
+	}
+	
 	public void aguardarPorXpath(int segundos, String xPath) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(segundos));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
