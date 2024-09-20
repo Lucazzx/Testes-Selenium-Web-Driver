@@ -41,7 +41,7 @@ public class TesteCampoTreinamentoRegrasDeNegocio {
 		driver = new FirefoxDriver();
 		driver.manage().window().minimize();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		page = new CampoDeTreinamentoPage(driver);
+		page = new CampoDeTreinamentoPage();
     }
 
     @After

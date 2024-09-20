@@ -1,11 +1,12 @@
-package testes;
+package core;
+
+import static core.DriverFactory.getDriver;
 
 import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -13,52 +14,48 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class DSL {
 	
-	private WebDriver driver;
 
-    public DSL(WebDriver driver) {
-		this.driver = driver;
-	}
         
     public void escrever(String id, String texto) {
-    	driver.findElement(By.id(id)).clear();
-    	driver.findElement(By.id(id)).sendKeys(texto);
+		getDriver().findElement(By.id(id)).clear();
+    	getDriver().findElement(By.id(id)).sendKeys(texto);
     }
     
     public void escreverTag(String tag, String texto) {
-    	driver.findElement(By.tagName(tag)).clear();
-    	driver.findElement(By.tagName(tag)).sendKeys(texto);
+    	getDriver().findElement(By.tagName(tag)).clear();
+    	getDriver().findElement(By.tagName(tag)).sendKeys(texto);
     }
     
     public String obterValorCampo (String id) {
-    	return driver.findElement(By.id(id)).getAttribute("value");
+    	return getDriver().findElement(By.id(id)).getAttribute("value");
     }
     
     public String obterTextoCampo (String id) {
-    	return driver.findElement(By.id(id)).getText();
+    	return getDriver().findElement(By.id(id)).getText();
     }
     
     public String obterTextoTag (String tag) {
-    	return driver.findElement(By.tagName(tag)).getText();
+    	return getDriver().findElement(By.tagName(tag)).getText();
     }
     
     public void clicar(String id) {
-    	driver.findElement(By.id(id)).click();
+    	getDriver().findElement(By.id(id)).click();
     }
     
     public void clicarPorXpath(String id) {
-    	driver.findElement(By.xpath(id)).click();
+    	getDriver().findElement(By.xpath(id)).click();
     }
     
     public void clicarLink(String textoLink) {
-    	driver.findElement(By.linkText(textoLink)).click();
+    	getDriver().findElement(By.linkText(textoLink)).click();
     }
     
     public Boolean estaMarcado (String id) {
-    	return driver.findElement(By.id(id)).isSelected();
+    	return getDriver().findElement(By.id(id)).isSelected();
     }
     
     public void selecionarCombo(String id, String[] esportes) {
-        WebElement element = driver.findElement(By.id(id));
+        WebElement element = getDriver().findElement(By.id(id));
         Select combo = new Select(element);
         
         // Obtém todos os itens disponíveis no combo
@@ -78,7 +75,7 @@ public class DSL {
     }
     
     public String obterValorCombo(String id) {
-    	WebElement element = driver.findElement(By.id(id));
+    	WebElement element = getDriver().findElement(By.id(id));
 		Select combo = new Select(element);
 		//combo.selectByIndex(2);
 		//combo.selectByValue("2grauincomp");
@@ -88,7 +85,7 @@ public class DSL {
     public Boolean procurarValorCombo (String id, String valorProcurado) {
     	boolean encontrouElemento = false;
 		
-    	WebElement element = driver.findElement(By.id(id));
+    	WebElement element = getDriver().findElement(By.id(id));
 		Select combo = new Select(element);
 		List<WebElement> options = combo.getOptions();
 		for(WebElement option : options) {
@@ -101,41 +98,41 @@ public class DSL {
     }
     
     public void trocaParaAlerta () {
-    	driver.switchTo().alert();
+    	getDriver().switchTo().alert();
     }
     
     public void trocaEAceitaAlerta () {
-    	driver.switchTo().alert().accept();
+    	getDriver().switchTo().alert().accept();
     }
     
     public void trocaENegaAlerta () {
-    	driver.switchTo().alert().dismiss();
+    	getDriver().switchTo().alert().dismiss();
     }
      
     public String obterTextoAlerta () {
-    	return driver.switchTo().alert().getText();
+    	return getDriver().switchTo().alert().getText();
     }
     
     public void escreverAlerta (String texto) {
-    	driver.switchTo().alert().sendKeys(texto);
-    	driver.switchTo().alert().accept();
+    	getDriver().switchTo().alert().sendKeys(texto);
+    	getDriver().switchTo().alert().accept();
     }
     
     public void trocaParaFrame (String frame) {
-    	driver.switchTo().frame(frame);
+    	getDriver().switchTo().frame(frame);
     }
     
     public void trocaParaJanela (String janela) {
-    	driver.switchTo().window(janela);
+    	getDriver().switchTo().window(janela);
     }
     
     public void executarJS (String comando, Object... parametros) {
-    	JavascriptExecutor js = (JavascriptExecutor) driver;
+    	JavascriptExecutor js = (JavascriptExecutor) getDriver();
     	js.executeScript(comando, parametros);
     }
     
     public void clicarBotaoTabela(String colunaBusca, String valor, String colunaBotao, String idTabela) {
-    	WebElement tabela = driver.findElement(By.xpath("//*[@id='"+idTabela+"']"));
+    	WebElement tabela = getDriver().findElement(By.xpath("//*[@id='"+idTabela+"']"));
     	int idColuna = obterIndiceColuna(colunaBusca, tabela);
     	
     	int idLinha = obterIndiceLinhas(valor, tabela, idColuna);
@@ -171,12 +168,12 @@ public class DSL {
 	}
 	
 	public void aguardarPorId(int segundos, String id) {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(segundos));
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(segundos));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
 	}
 	
 	public void aguardarPorXpath(int segundos, String xPath) {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(segundos));
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(segundos));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPath)));
 	}
     

@@ -1,26 +1,24 @@
 package testes;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import core.DSL;
+
 public class TesteSincronismo {
 
 	private WebDriver driver;
 	private DSL dsl;
-	private CampoDeTreinamentoPage page;
-	
+
 	@Before
     public void setUp() {
 		driver = new FirefoxDriver();
 		driver.manage().window().minimize();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL(driver);
-		page = new CampoDeTreinamentoPage(driver);
+		dsl = new DSL();
     }
 
     @After

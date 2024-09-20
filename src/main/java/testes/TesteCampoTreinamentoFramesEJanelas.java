@@ -12,6 +12,8 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import core.DSL;
+
 public class TesteCampoTreinamentoFramesEJanelas {
 	
 	private WebDriver driver;
@@ -23,8 +25,8 @@ public class TesteCampoTreinamentoFramesEJanelas {
 		driver = new FirefoxDriver();
 		driver.manage().window().minimize();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL(driver);
-		page = new CampoDeTreinamentoPage(driver);
+		dsl = new DSL();
+		page = new CampoDeTreinamentoPage();
     }
 
     @After

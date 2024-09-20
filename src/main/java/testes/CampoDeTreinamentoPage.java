@@ -1,13 +1,13 @@
 package testes;
 
-import org.openqa.selenium.WebDriver;
+import core.DSL;
 
 public class CampoDeTreinamentoPage {
 	
 	private DSL dsl;
 		
-    public CampoDeTreinamentoPage(WebDriver driver) {
-		dsl = new DSL(driver);
+    public CampoDeTreinamentoPage() {
+		dsl = new DSL();
 	}
     
 	public static final String CAMPO_NOME = "elementosForm:nome";

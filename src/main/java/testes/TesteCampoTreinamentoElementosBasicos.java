@@ -1,5 +1,7 @@
 package testes;
 
+import static core.DriverFactory.getDriver;
+import static core.DriverFactory.killDriver;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -10,30 +12,26 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+
+import core.DSL;
 
 public class TesteCampoTreinamentoElementosBasicos {
 	
-	private WebDriver driver;
 	private DSL dsl;
 	private CampoDeTreinamentoPage page;
 	
 	@Before
     public void setUp() {
-		driver = new FirefoxDriver();
-		driver.manage().window().minimize();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL(driver);
-		page = new CampoDeTreinamentoPage(driver);
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL();
+		page = new CampoDeTreinamentoPage();
     }
 
     @After
     public void tearDown() {
-		//driver.quit();
+		killDriver();
     }
 	
 	
@@ -78,7 +76,7 @@ public class TesteCampoTreinamentoElementosBasicos {
 	
 	@Test
 	public void testeValoresComboMultiplo() {
-		WebElement element = driver.findElement(By.id(CampoDeTreinamentoPage.COMBO_ESPORTE));
+		WebElement element = getDriver().findElement(By.id(CampoDeTreinamentoPage.COMBO_ESPORTE));
 		Select combo = new Select(element);
 		
 		combo.selectByVisibleText("Natacao");
@@ -117,7 +115,7 @@ public class TesteCampoTreinamentoElementosBasicos {
 		page.setEsporte("Corrida");
 		page.setClickBotaoCadastrar();
 
-		WebElement divResultado = driver.findElement(By.id(CampoDeTreinamentoPage.RESULTADO));
+		WebElement divResultado = getDriver().findElement(By.id(CampoDeTreinamentoPage.RESULTADO));
 		
 		assertEquals("Cadastrado! " 
 		+ "Nome: Lucas "
@@ -136,7 +134,7 @@ public class TesteCampoTreinamentoElementosBasicos {
 	// exemplo de uso de js no selenium
 	public void testeJavascript() {
 		dsl.executarJS("arguments[0].style.border = arguments[1]", 
-				driver.findElement(By.id("elementosForm:nome")), 
+				getDriver().findElement(By.id("elementosForm:nome")), 
 				"solid 4px red");
 		
 	}
