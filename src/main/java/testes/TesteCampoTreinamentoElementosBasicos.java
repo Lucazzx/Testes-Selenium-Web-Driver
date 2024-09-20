@@ -1,13 +1,11 @@
 package testes;
 
 import static core.DriverFactory.getDriver;
-import static core.DriverFactory.killDriver;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -15,9 +13,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import core.BaseTeste;
 import core.DSL;
+import pages.CampoDeTreinamentoPage;
 
-public class TesteCampoTreinamentoElementosBasicos {
+public class TesteCampoTreinamentoElementosBasicos extends BaseTeste {
 	
 	private DSL dsl;
 	private CampoDeTreinamentoPage page;
@@ -29,12 +29,6 @@ public class TesteCampoTreinamentoElementosBasicos {
 		page = new CampoDeTreinamentoPage();
     }
 
-    @After
-    public void tearDown() {
-		killDriver();
-    }
-	
-	
 	
 	@Test
 	public void testeTextField() {

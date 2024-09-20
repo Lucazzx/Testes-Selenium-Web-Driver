@@ -1,15 +1,9 @@
-package testes;
+package pages;
 
-import core.DSL;
+import core.BasePage;
 
-public class CampoDeTreinamentoPage {
-	
-	private DSL dsl;
-		
-    public CampoDeTreinamentoPage() {
-		dsl = new DSL();
-	}
-    
+public class CampoDeTreinamentoPage extends BasePage{
+	  
 	public static final String CAMPO_NOME = "elementosForm:nome";
 	public static final String CAMPO_SOBRENOME = "elementosForm:sobrenome";
 	public static final String CAMPO_SUGESTOES = "elementosForm:sugestoes";

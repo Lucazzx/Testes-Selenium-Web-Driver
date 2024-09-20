@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,8 +15,11 @@ import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import core.BaseTeste;
+import pages.CampoDeTreinamentoPage;
+
 @RunWith(Parameterized.class)
-public class TesteCampoTreinamentoRegrasDeNegocio {
+public class TesteCampoTreinamentoRegrasDeNegocio extends BaseTeste{
 	
 	private WebDriver driver;
 	private CampoDeTreinamentoPage page;
@@ -42,11 +44,6 @@ public class TesteCampoTreinamentoRegrasDeNegocio {
 		driver.manage().window().minimize();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 		page = new CampoDeTreinamentoPage();
-    }
-
-    @After
-    public void tearDown() {
-		driver.quit();
     }
 		
     @Parameters

@@ -6,15 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import core.BaseTeste;
 import core.DSL;
+import pages.CampoDeTreinamentoPage;
 
-public class TesteCampoTreinamentoFramesEJanelas {
+public class TesteCampoTreinamentoFramesEJanelas extends BaseTeste{
 	
 	private WebDriver driver;
 	private DSL dsl;
@@ -28,12 +29,6 @@ public class TesteCampoTreinamentoFramesEJanelas {
 		dsl = new DSL();
 		page = new CampoDeTreinamentoPage();
     }
-
-    @After
-    public void tearDown() {
-		driver.quit();
-    }
-	
 		
 	@Test
 	public void testeInteragirFrame() {

@@ -3,15 +3,15 @@ package testes;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import core.BaseTeste;
 import core.DSL;
 
-public class TestePrimeFaces {
+public class TestePrimeFaces extends BaseTeste{
 	
 	private WebDriver driver;
 	private DSL dsl;
@@ -21,11 +21,6 @@ public class TestePrimeFaces {
 		driver = new FirefoxDriver();
 		driver.manage().window().minimize();
 		dsl = new DSL();
-    }
-
-    @After
-    public void tearDown() {
-		//driver.quit();
     }
     
     @Test

@@ -1,14 +1,14 @@
 package testes;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import core.BaseTeste;
 import core.DSL;
 
-public class TesteSincronismo {
+public class TesteSincronismo extends BaseTeste{
 
 	private WebDriver driver;
 	private DSL dsl;
@@ -19,11 +19,6 @@ public class TesteSincronismo {
 		driver.manage().window().minimize();
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 		dsl = new DSL();
-    }
-
-    @After
-    public void tearDown() {
-		driver.quit();
     }
     
     @Test

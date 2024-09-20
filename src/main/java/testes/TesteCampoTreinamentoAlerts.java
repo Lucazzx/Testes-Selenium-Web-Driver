@@ -2,15 +2,16 @@ package testes;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import core.BaseTeste;
 import core.DSL;
+import pages.CampoDeTreinamentoPage;
 
-public class TesteCampoTreinamentoAlerts {
+public class TesteCampoTreinamentoAlerts extends BaseTeste{
 		
 	private WebDriver driver;
 	private DSL dsl;
@@ -23,11 +24,6 @@ public class TesteCampoTreinamentoAlerts {
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 		dsl = new DSL();
 		page = new CampoDeTreinamentoPage();
-    }
-
-    @After
-    public void tearDown() {
-		driver.quit();
     }
 	
 	@Test
