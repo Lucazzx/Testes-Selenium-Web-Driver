@@ -1,31 +1,27 @@
 package testes;
 
+import static core.DriverFactory.getDriver;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import core.BaseTeste;
 import core.DSL;
 
 public class TestePrimeFaces extends BaseTeste{
 	
-	private WebDriver driver;
 	private DSL dsl;
 	
 	@Before
     public void setUp() {
-		driver = new FirefoxDriver();
-		driver.manage().window().minimize();
 		dsl = new DSL();
     }
     
     @Test
     public void testeInteragirRadioPrime(){
-		driver.get("https://www.primefaces.org/showcase/ui/input/oneRadio.xhtml?jfwid=99033");
+    	getDriver().get("https://www.primefaces.org/showcase/ui/input/oneRadio.xhtml?jfwid=99033");
     	
     	dsl.clicarPorXpath("//div[@id='j_idt249:line']//label[@for='j_idt249:line:0']");
     	assertTrue(dsl.estaMarcado("j_idt249:line:0"));
@@ -33,7 +29,7 @@ public class TestePrimeFaces extends BaseTeste{
     
     @Test
     public void testeInteragirComboPrime(){
-		driver.get("https://www.primefaces.org/showcase/ui/input/oneMenu.xhtml?jfwid=e2534");
+    	getDriver().get("https://www.primefaces.org/showcase/ui/input/oneMenu.xhtml?jfwid=e2534");
     	
 		dsl.clicar("j_idt248:option_label");
 		dsl.aguardarPorXpath(10, "//ul[@id='j_idt248:option_items']");		
@@ -43,7 +39,7 @@ public class TestePrimeFaces extends BaseTeste{
 	
     @Test
     public void testeInteragirAjax(){
-		driver.get("http://www.primefaces.org/showcase/ui/ajax/basic.xhtml?jfwid=64a06");
+    	getDriver().get("http://www.primefaces.org/showcase/ui/ajax/basic.xhtml?jfwid=64a06");
     	
 		dsl.escrever("j_idt248:name", "Lucas");
 		dsl.clicar("j_idt248:j_idt252");

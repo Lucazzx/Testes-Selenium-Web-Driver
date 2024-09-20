@@ -1,5 +1,6 @@
 package testes;
 
+import static core.DriverFactory.getDriver;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
@@ -12,8 +13,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import core.BaseTeste;
 import pages.CampoDeTreinamentoPage;
@@ -21,7 +20,6 @@ import pages.CampoDeTreinamentoPage;
 @RunWith(Parameterized.class)
 public class TesteCampoTreinamentoRegrasDeNegocio extends BaseTeste{
 	
-	private WebDriver driver;
 	private CampoDeTreinamentoPage page;
 	
 	@Parameter
@@ -40,9 +38,7 @@ public class TesteCampoTreinamentoRegrasDeNegocio extends BaseTeste{
 	
 	@Before
     public void setUp() {
-		driver = new FirefoxDriver();
-		driver.manage().window().minimize();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 		page = new CampoDeTreinamentoPage();
     }
 		
@@ -71,5 +67,6 @@ public class TesteCampoTreinamentoRegrasDeNegocio extends BaseTeste{
 		page.setClickBotaoCadastrar();
 		
 		assertEquals(mensagens, page.getTextoAlerta());
+		page.setClickOkAlerta();
 	}	
 }

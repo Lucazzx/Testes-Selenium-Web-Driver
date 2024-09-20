@@ -152,6 +152,10 @@ public class CampoDeTreinamentoPage extends BasePage{
     	return dsl.obterTextoAlerta();
     }
     
+    public void setClickOkAlerta () {
+    	dsl.trocaEAceitaAlerta();;
+    }
+    
     public void setClickPopUpComNome () {
     	dsl.clicar(BOTAO_POPUP_COM_NOME);
     }

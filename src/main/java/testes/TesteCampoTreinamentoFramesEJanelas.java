@@ -1,5 +1,6 @@
 package testes;
 
+import static core.DriverFactory.getDriver;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
@@ -9,7 +10,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import core.BaseTeste;
 import core.DSL;
@@ -23,9 +23,7 @@ public class TesteCampoTreinamentoFramesEJanelas extends BaseTeste{
 	
 	@Before
     public void setUp() {
-		driver = new FirefoxDriver();
-		driver.manage().window().minimize();
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
 		dsl = new DSL();
 		page = new CampoDeTreinamentoPage();
     }
