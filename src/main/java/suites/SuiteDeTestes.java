@@ -1,9 +1,11 @@
 package suites;
 
+import org.junit.AfterClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import core.DriverFactory;
 import testes.TesteCampoTreinamentoAlerts;
 import testes.TesteCampoTreinamentoElementosBasicos;
 import testes.TesteCampoTreinamentoFramesEJanelas;
@@ -18,4 +20,10 @@ import testes.TesteCampoTreinamentoRegrasDeNegocio;
 })
 
 public class SuiteDeTestes {
+	
+	@AfterClass
+	public static void tearDownAll  () {
+		DriverFactory.killDriver();
+	}
+	
 }

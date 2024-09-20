@@ -9,7 +9,10 @@ public class BaseTeste {
 
     @After
     public void tearDown() {
-		killDriver();
+		if(Propriedades.FECHAR_BROWSER) {
+			killDriver();
+		}
+    	
     }
 
 }
